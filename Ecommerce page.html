@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 1em;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .product {
+            display: flex;
+            padding: 2em;
+        }
+
+        .product-image img {
+            max-width: 100%;
+        }
+
+        .product-details {
+            margin-left: 2em;
+        }
+
+        .price {
+            font-size: 1.5em;
+            color: #e74c3c;
+        }
+
+        .add-to-cart {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+        }
+
+        .related-products {
+            padding: 2em;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .product {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-details {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">Logo</a>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Account</a></li>
+            </ul>
+            <input type="text" placeholder="Search...">
+        </nav>
+    </header>
+    <main>
+        <section class="product">
+            <div class="product-image">
+                <img src="shoe.jpg" alt="Product Name">
+            </div>
+            <div class="product-details">
+                <h1>Product Name</h1>
+                <p class="price">$99.99</p>
+                <p class="description">This is a great product that you will love!</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </section>
+        <section class="related-products">
+            <h2>Related Products</h2>
+            <a href="Slippers">slippers</a><br>
+            <a href="flats">flats</a><br>
+            <a href="Beauty products"> Beauty products</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+        <nav>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact</a>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+        </nav>
+    </footer>
+</body>
+</html>
