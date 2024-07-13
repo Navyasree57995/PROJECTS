@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        li button {
+            margin-left: 10px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        li button.edit {
+            color: #ffc107;
+        }
+
+        li button.delete {
+            color: #dc3545;
+        }
+
+        li button.complete {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="input-container">
+            <input type="text" id="new-task" placeholder="Add a new task...">
+            <button id="add-task">Add</button>
+        </div>
+        <ul id="task-list"></ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const taskInput = document.getElementById('new-task');
+            const addTaskButton = document.getElementById('add-task');
+            const taskList = document.getElementById('task-list');
+
+            // Load tasks from local storage
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+            const saveTasks = () => {
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            };
+
+            const renderTasks = () => {
+                taskList.innerHTML = '';
+                tasks.forEach((task, index) => {
+                    const li = document.createElement('li');
+                    li.className = task.completed ? 'completed' : '';
+                    li.innerHTML = `
+                        <span>${task.text}</span>
+                        <button class="complete">${task.completed ? 'Uncomplete' : 'Complete'}</button>
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    `;
+
+                    li.querySelector('.complete').addEventListener('click', () => {
+                        tasks[index].completed = !tasks[index].completed;
+                        saveTasks();
+                        renderTasks();
+                    });
+
+                    li.querySelector('.edit').addEventListener('click', () => {
+                        const newText = prompt('Edit task:', task.text);
+                        if (newText) {
+                            tasks[index].text = newText;
+                            saveTasks();
+                            renderTasks();
+                        }
+                    });
+
+                    li.querySelector('.delete').addEventListener('click', () => {
+                        tasks.splice(index, 1);
+                        saveTasks();
+                        renderTasks();
+                    });
+
+                    taskList.appendChild(li);
+                });
+            };
+
+            addTaskButton.addEventListener('click', () => {
+                const newTask = taskInput.value.trim();
+                if (newTask) {
+                    tasks.push({ text: newTask, completed: false });
+                    saveTasks();
+                    renderTasks();
+                    taskInput.value = '';
+                }
+            });
+
+            renderTasks();
+        });
+    </script>
+</body>
+</html>
